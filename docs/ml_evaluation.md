@@ -2,6 +2,25 @@
 
 ## 1. Overview & Setup
 
+```text
+5,000 chronological transactions
+       │
+       ▼
+ ┌─────┴─────┐
+ │           │
+4,000 train  1,000 test
+ │           │
+ ▼           │
+Train model  │
+ │           │
+ └─────┬─────┘
+       ▼
+ Model -> Test
+       │
+       ▼
+ Final metrics
+```
+
 - **Model Type:** Isolation Forest (`sklearn.ensemble.IsolationForest`)
 - **Model Version:** `v1.0.0`
 - **Total Dataset Size:** 5,000 transactions

@@ -151,6 +151,25 @@ def evaluate_model(
 
 ## 1. Overview & Setup
 
+```text
+5,000 chronological transactions
+       │
+       ▼
+ ┌─────┴─────┐
+ │           │
+4,000 train  1,000 test
+ │           │
+ ▼           │
+Train model  │
+ │           │
+ └─────┬─────┘
+       ▼
+ Model -> Test
+       │
+       ▼
+ Final metrics
+```
+
 - **Model Type:** Isolation Forest (`sklearn.ensemble.IsolationForest`)
 - **Model Version:** `{model_version}`
 - **Total Dataset Size:** {total_rows:,} transactions

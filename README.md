@@ -252,6 +252,25 @@ python scripts/generate_dataset.py --rows 5000 --users 50 --anomaly-ratio 0.06 -
 
 ## 11. ML Training & Held-Out Evaluation
 
+```text
+5,000 chronological transactions
+       │
+       ▼
+ ┌─────┴─────┐
+ │           │
+4,000 train  1,000 test
+ │           │
+ ▼           │
+Train model  │
+ │           │
+ └─────┬─────┘
+       ▼
+ Model -> Test
+       │
+       ▼
+ Final metrics
+```
+
 Train the Isolation Forest model using a strict chronological 80/20 train/test split and evaluate exclusively on the held-out test partition:
 
 ```bash
