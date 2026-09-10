@@ -20,9 +20,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def get_password_hash(password: str) -> str:
-    """Generate a bcrypt hash for a plain password."""
+    """Generate a bcrypt hash for a plain password with cost factor 12."""
     password_bytes = password.encode("utf-8")[:72]
-    salt = bcrypt.gensalt()
+    salt = bcrypt.gensalt(rounds=12)
     return bcrypt.hashpw(password_bytes, salt).decode("utf-8")
 
 

@@ -7,6 +7,7 @@ from typing import List, Optional, Tuple
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.core.logging import logger
 from app.models.risk import RiskAssessment
 from app.models.transaction import Transaction
 from app.models.user import User
@@ -38,6 +39,10 @@ class TransactionService:
         5. Trigger Alert if risk score exceeds threshold
         """
         tx_time = tx_in.timestamp or datetime.now(timezone.utc)
+        logger.info(
+            f"Transaction received: user_id={current_user.id}, amount={tx_in.amount}, "
+            f"merchant={tx_in.merchant}, location={tx_in.location}"
+        )
 
         # 1. Fetch user historical metrics
         history_summary = self.tx_repo.get_user_history_summary(
@@ -97,6 +102,12 @@ class TransactionService:
             model_version=risk_result["model_version"],
         )
         self.risk_repo.create(assessment)
+
+        logger.info(
+            f"Risk assessment completed for transaction_id={saved_tx.id}: "
+            f"rule_score={risk_result['rule_score']}, ml_score={risk_result['ml_score']}, "
+            f"final_score={risk_result['final_score']} ({risk_level})"
+        )
 
         # 6. Trigger alert if needed
         self.alert_service.process_risk_and_maybe_alert(

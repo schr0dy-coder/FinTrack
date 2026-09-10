@@ -30,29 +30,44 @@ def seed_database():
             print("Database is already seeded with admin account. Skipping seeding.")
             return
 
+        admin_email = os.getenv("DEMO_ADMIN_EMAIL", "admin@fintrack.com")
+        admin_password = os.getenv("DEMO_ADMIN_PASSWORD", "Admin@123")
+        user1_email = os.getenv("DEMO_USER1_EMAIL", "john@example.com")
+        user1_password = os.getenv("DEMO_USER1_PASSWORD", "Password@123")
+        user2_email = os.getenv("DEMO_USER2_EMAIL", "jane@example.com")
+        user2_password = os.getenv("DEMO_USER2_PASSWORD", "Password@123")
+        user3_email = os.getenv("DEMO_USER3_EMAIL", "robert@example.com")
+        user3_password = os.getenv("DEMO_USER3_PASSWORD", "Password@123")
+
+        print("=" * 80)
+        print("DEMO ONLY NOTICE:")
+        print("These credentials are intended ONLY for local development with synthetic data.")
+        print("Never use these credentials in a production environment.")
+        print("=" * 80)
+
         print("Seeding users...")
         admin = User(
             name="FinTrack Administrator",
-            email="admin@fintrack.com",
-            password_hash=get_password_hash("Admin@123"),
+            email=admin_email,
+            password_hash=get_password_hash(admin_password),
             role="ADMIN",
         )
         user1 = User(
             name="John Doe",
-            email="john@example.com",
-            password_hash=get_password_hash("Password@123"),
+            email=user1_email,
+            password_hash=get_password_hash(user1_password),
             role="USER",
         )
         user2 = User(
             name="Jane Smith",
-            email="jane@example.com",
-            password_hash=get_password_hash("Password@123"),
+            email=user2_email,
+            password_hash=get_password_hash(user2_password),
             role="USER",
         )
         user3 = User(
             name="Robert Taylor",
-            email="robert@example.com",
-            password_hash=get_password_hash("Password@123"),
+            email=user3_email,
+            password_hash=get_password_hash(user3_password),
             role="USER",
         )
 

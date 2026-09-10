@@ -218,12 +218,16 @@ def generate_benchmark_markdown(
 ## 1. Test Environment Specifications
 
 - **Execution Date:** `{specs["timestamp"]}`
+- **Benchmark Context:** Local Single-Process Development Environment (Measured via synchronous FastAPI TestClient & direct SQLAlchemy session; distinguishes local single-process performance from distributed production event streaming).
 - **Operating System:** `{specs["os"]}`
 - **CPU Architecture:** `{specs["cpu"]}` ({specs["cores"]} logical cores)
 - **Host Memory (RAM):** `{specs["ram_gb"]}`
 - **Python Runtime:** `Python {specs["python"]}`
-- **Database Engine:** SQLite / PostgreSQL (WAL mode)
-- **ML Engine:** scikit-learn Isolation Forest (150 estimators, 8 features)
+- **Database Engine:** SQLite / PostgreSQL (WAL mode, parameterized queries)
+- **ML Engine:** scikit-learn Isolation Forest (150 estimators, 8 features, `random_state=42`)
+- **Dataset Scale:** 5,000 synthetic transactions across 50 users
+- **Warm-Up Strategy:** 10 warm-up requests executed prior to recording timing arrays
+- **Iterations:** 500 iterations for ML micro-benchmarks, 200 for database queries, 250 for end-to-end HTTP pipeline
 
 ---
 
@@ -261,10 +265,11 @@ Micro-benchmarking of feature transformation and Isolation Forest anomaly score 
 
 ---
 
-## 5. Summary for Resume & Technical Viva
+## 5. Summary & Production Considerations
 
-- **Low-Latency Ingestion:** The entire hybrid risk engine evaluates rules and ML inference in **{api_res["tx_create_avg_ms"]} ms** average ({api_res["tx_create_p95_ms"]} ms p95) per transaction.
+- **Synchronous Ingestion Performance:** The complete synchronous hybrid risk engine evaluates rules and ML inference in **{api_res["tx_create_avg_ms"]} ms** average ({api_res["tx_create_p95_ms"]} ms p95) per transaction.
 - **Microsecond ML Inference:** Isolation Forest model scoring executes in **~{ml_res["inference_avg_ms"]} ms** per transaction vector, enabling real-time risk assessment within synchronous API request cycles.
+- **Production Architecture Scaling:** While synchronous processing delivers ~44 req/s on a single process worker, scaling to enterprise volumes (10,000+ req/s) would involve horizontal API replication behind a load balancer and asynchronous message ingestion via Kafka/RabbitMQ.
 """
 
     os.makedirs(os.path.dirname(full_path), exist_ok=True)

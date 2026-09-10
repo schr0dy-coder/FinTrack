@@ -2,7 +2,11 @@
   "model_type": "IsolationForest",
   "model_version": "v1.0.0",
   "feature_version": "v1.0.0",
-  "training_sample_count": 5000,
+  "dataset_total_count": 5000,
+  "training_sample_count": 4000,
+  "held_out_test_sample_count": 1000,
+  "split_strategy": "Chronological 80/20",
+  "evaluation_scope": "Held-out test set only",
   "feature_count": 8,
   "feature_names": [
     "amount",
@@ -17,9 +21,9 @@
   "random_state": 42,
   "contamination": 0.05,
   "n_estimators": 150,
-  "detected_anomalies_count": 250,
+  "training_detected_anomalies_count": 200,
   "training_anomaly_rate_pct": 5.0,
-  "min_decision_score": -0.1770629991044962,
-  "max_decision_score": 0.2222689879028707,
-  "trained_at": "2026-09-10T15:16:30.817968+00:00"
+  "min_decision_score": -0.15817239433861707,
+  "max_decision_score": 0.226343610098308,
+  "trained_at": "2026-09-10T16:32:18.919876+00:00"
 }

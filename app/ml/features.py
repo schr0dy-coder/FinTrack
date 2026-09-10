@@ -76,6 +76,9 @@ def dataframe_to_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
     Strictly prevents temporal leakage by calculating historical and rolling features
     chronologically using only events occurring prior to each transaction timestamp.
     """
+    if df.empty or len(df) == 0:
+        return pd.DataFrame(columns=FEATURE_COLUMNS, dtype=float)
+
     df_work = df.copy()
     original_index = df_work.index
 

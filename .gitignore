@@ -88,3 +88,12 @@ desktop.ini
 *.bak
 *.orig
 *.sw?
+
+# External / Task Specifications & Scratch Markdown Documents
+FINTRACK_REQUIRED_CHANGES.md
+USER_GUIDE.md
+architecture.md
+execution.md
+requirements.md
+*.scratch.md
+*.prompt.md
