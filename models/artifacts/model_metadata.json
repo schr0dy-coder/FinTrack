@@ -1,0 +1,25 @@
+{
+  "model_type": "IsolationForest",
+  "model_version": "v1.0.0",
+  "feature_version": "v1.0.0",
+  "training_sample_count": 5000,
+  "feature_count": 8,
+  "feature_names": [
+    "amount",
+    "hour_of_day",
+    "day_of_week",
+    "user_tx_count_24h",
+    "amount_deviation",
+    "is_new_device",
+    "is_new_location",
+    "failed_attempts_count"
+  ],
+  "random_state": 42,
+  "contamination": 0.05,
+  "n_estimators": 150,
+  "detected_anomalies_count": 250,
+  "training_anomaly_rate_pct": 5.0,
+  "min_decision_score": -0.1770629991044962,
+  "max_decision_score": 0.2222689879028707,
+  "trained_at": "2026-09-10T15:16:30.817968+00:00"
+}

@@ -1,0 +1,59 @@
+# ==============================================================================
+# Docker Build Ignore (.dockerignore)
+# Prevents leaking local secrets, large virtual environments, and caches into image
+# ==============================================================================
+
+# Environment files & Secrets
+.env
+.env.*
+.env.local
+.env.*.local
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python Cache & Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Local SQLite Databases
+*.db
+*.sqlite
+*.sqlite3
+fintrack.db
+test.db
+
+# Test & Quality Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Version Control & IDEs
+.git/
+.gitignore
+.dockerignore
+.vscode/
+.idea/
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Large / Compressed Archives
+*.zip
+*.tar.gz

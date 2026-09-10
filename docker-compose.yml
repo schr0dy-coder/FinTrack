@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: fintrack-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-fintrack}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-fintrack}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fintrack -d fintrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend API Server
+  api:
+    build: .
+    container_name: fintrack-api
+    restart: unless-stopped
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2"
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql+psycopg://fintrack:password@db:5432/fintrack}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-replace-with-a-random-development-secret}
+      - JWT_ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - HIGH_AMOUNT_THRESHOLD=50000.0
+      - RAPID_TRANSACTION_WINDOW_SECONDS=120
+      - RAPID_TRANSACTION_COUNT=5
+      - RISK_HIGH_THRESHOLD=60.0
+      - RISK_CRITICAL_THRESHOLD=80.0
+      - RULE_WEIGHT=0.60
+      - ML_WEIGHT=0.40
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Streamlit Analyst Dashboard
+  dashboard:
+    build: .
+    container_name: fintrack-dashboard
+    restart: unless-stopped
+    command: streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    environment:
+      - API_BASE_URL=http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

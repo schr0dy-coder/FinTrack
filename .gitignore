@@ -1,0 +1,90 @@
+# ==============================================================================
+# FinTrack - Git Ignore Configuration
+# Protects secrets, virtual environments, local databases, and temporary caches
+# ==============================================================================
+
+# Environment Variables & Secrets (CRITICAL: Do NOT commit secrets to Git)
+.env
+.env.local
+.env.*.local
+.env.*
+!.env.example
+
+# Virtual Environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Local SQLite Databases & State
+*.sqlite
+*.sqlite3
+*.db
+fintrack.db
+test.db
+
+# Python Bytecode & Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution, Packaging & Builds
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing, Coverage & Linters
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+
+# Docker Local Overrides
+docker-compose.override.yml
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Logs & Temporary Files
+*.log
+*.tmp
+*.bak
+*.orig
+*.sw?
