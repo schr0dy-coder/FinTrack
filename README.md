@@ -16,7 +16,7 @@ FinTrack evaluates financial transactions as they are submitted through a synchr
 - **Deterministic Rules Engine:** 5 behavioral rules producing human-readable risk reasons.
 - **Unsupervised Anomaly Detection:** An 8-feature Isolation Forest model identifying multidimensional anomalies using historical context prior to each transaction.
 - **Hybrid Risk Scoring:** Weighted aggregation ($0.60 \times \text{Rule} + 0.40 \times \text{ML}$) mapped to 4 standard risk tiers (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`).
-- **Analyst Triage Queue:** High and critical risk transactions automatically trigger alerts with resolution workflows.
+- **Analyst Triage Queue:** High and critical risk transactions automatically trigger alerts with resolution workflows. 
 
 ---
 
@@ -380,7 +380,7 @@ Evaluated on **1,000 held-out transactions** (last 20% chronologically: 936 norm
 | **ROC-AUC** | **0.9740** | High separability across continuous anomaly scores on test data |
 | **Accuracy** | **98.00%** (`0.9800`) | Overall classification accuracy across held-out transactions |
 
-### Performance Benchmarks (Local Development Benchmark Environment)
+### Performance Benchmarks (Local Development Single-Worker Baseline)
 
 *Measured on Intel Core Ultra 7 155H (22 Cores), 16GB RAM, Python 3.12.7, SQLite/PostgreSQL WAL mode, 10 warm-up requests:*
 
@@ -392,14 +392,24 @@ Evaluated on **1,000 held-out transactions** (last 20% chronologically: 936 norm
 | ML Model Inference (Isolation Forest) | **5.60 ms** | **6.70 ms** |
 | Historical Profiling Query (DB) | **4.92 ms** | **4.70 ms** |
 
-> *Note: Benchmarks reflect local single-process development environment performance. Production systems can achieve higher throughput via horizontal API worker scaling and asynchronous message brokers.*
+### Locust Concurrent Load Testing (Multi-User Stress Benchmark)
+
+*Empirical load test across realistic customer transaction ingestion (`POST`), paginated search (`GET`), alert triage (`GET`), and admin KPI telemetry (`GET`) using Locust 2.46+:*
+
+| Concurrency Tier | Total Requests | Sustained Throughput | Median (p50) | 95th Percentile (p95) | 99th Percentile (p99) | Success Rate |
+|---|---|---|---|---|---|---|
+| **10 Concurrent Users** | 943 reqs | **49.43 req/s** | 110.0 ms | **280.0 ms** | **400.0 ms** | **100.0%** (0 errors) |
+| **25 Concurrent Users** | 1,301 reqs | **53.99 req/s** | 230.0 ms | **990.0 ms** | **3,100.0 ms** | **99.85%** (2 errors) |
+| **50 Concurrent Users** | 1,287 reqs | **44.28 req/s** | 830.0 ms | **2,100.0 ms** | **3,100.0 ms** | **100.0%** (0 errors) |
+
+> *Detailed endpoint breakdown and architectural scaling analysis are documented in [docs/benchmarks.md](docs/benchmarks.md).*
 
 ---
 
 ## 17. Technical Limitations & Discussion
 
 1. **Unsupervised Anomaly Assumptions:** Isolation Forest isolates points in feature space without class balance priors. Sub-burst velocity transactions with normal amounts can produce lower ML anomaly scores; these are caught by the deterministic `RapidTransactionsRule`.
-2. **Synchronous Ingestion:** Risk scoring executes synchronously within the HTTP request cycle (~24.8ms). For higher enterprise throughput (10,000+ req/s), an asynchronous event pipeline (Kafka/Celery) would decouple ingestion from scoring.
+2. **Synchronous Ingestion:** Risk scoring executes synchronously within the HTTP request cycle (~24.8ms baseline). A single ASGI worker sustains ~54 req/s under multi-user concurrency. For enterprise volume (10,000+ req/s), an asynchronous event pipeline (Kafka/RabbitMQ) with horizontal API worker pools decouples ingestion from scoring.
 3. **Synthetic Baseline:** Feature thresholds are calibrated on synthetic data distributions; production deployment requires retraining on actual historical payment traffic.
 
 ---
@@ -408,18 +418,18 @@ Evaluated on **1,000 held-out transactions** (last 20% chronologically: 936 norm
 
 ```text
 FinTrack | Financial Transaction Monitoring & Fraud Detection Platform
-Python, FastAPI, PostgreSQL, Alembic, Pandas, scikit-learn, Streamlit, Docker
+Python, FastAPI, PostgreSQL, Alembic, Pandas, scikit-learn, Streamlit, Docker, Locust
 
-• Built a layered financial transaction monitoring platform with FastAPI, PostgreSQL,
-  Alembic migrations, JWT authentication, role-based access control, and repository architecture.
+• Architected a layered financial transaction monitoring platform using FastAPI, PostgreSQL,
+  Alembic migrations, JWT authentication, and repository pattern with 44 automated tests.
 
-• Developed a hybrid risk engine combining 5 explainable deterministic rules with an
-  Isolation Forest anomaly detector across 8 historical transaction features.
+• Developed a hybrid real-time risk engine combining 5 deterministic behavioral rules with an
+  Isolation Forest anomaly detector across 8 historical transaction features (0.8214 F1-Score, 0.9740 ROC-AUC).
 
 • Implemented automated transaction profiling, risk scoring, alert generation, and
   analyst triage workflows via REST APIs and an interactive Streamlit dashboard.
 
-• Evaluated on 5,000 synthetic transactions using a chronological 80/20 held-out test set,
-  achieving 0.8214 F1-Score and 0.9740 ROC-AUC, with end-to-end transaction processing latency
-  averaging 24.80 ms (30.03 ms p95) across 44 automated tests.
+• Benchmarked synchronous API performance with Locust load testing across 10–50 concurrent users,
+  sustaining peak throughput of ~54 req/s across the end-to-end ingestion and ML inference pipeline
+  (p50: 110ms @ 10 users, p95: 280ms) with >99.8% request success rate.
 ```

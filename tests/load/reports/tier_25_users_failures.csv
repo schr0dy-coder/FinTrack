@@ -1,0 +1,2 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+POST,[API] POST /api/v1/transactions (Full Pipeline),HTTPError('500 Server Error: Internal Server Error for url: [API] POST /api/v1/transactions (Full Pipeline)'),2,2026-09-11T18:49:11Z,2026-09-11T18:49:13Z

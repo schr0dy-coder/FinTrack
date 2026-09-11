@@ -1,0 +1,7 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+GET,[API] GET /api/v1/alerts,"ConnectionRefusedError(10061, '[WinError 10061] No connection could be made because the target machine actively refused it.')",7,2026-09-11T18:47:56Z,2026-09-11T18:48:03Z
+POST,[API] POST /api/v1/transactions (Full Pipeline),"ConnectionRefusedError(10061, '[WinError 10061] No connection could be made because the target machine actively refused it.')",51,2026-09-11T18:47:56Z,2026-09-11T18:48:02Z
+GET,[API] GET /api/v1/transactions,"ConnectionRefusedError(10061, '[WinError 10061] No connection could be made because the target machine actively refused it.')",14,2026-09-11T18:47:56Z,2026-09-11T18:48:02Z
+GET,[API] GET /api/v1/admin/model/status,"ConnectionRefusedError(10061, '[WinError 10061] No connection could be made because the target machine actively refused it.')",5,2026-09-11T18:47:56Z,2026-09-11T18:48:00Z
+GET,[API] GET /api/v1/admin/statistics,"ConnectionRefusedError(10061, '[WinError 10061] No connection could be made because the target machine actively refused it.')",5,2026-09-11T18:47:58Z,2026-09-11T18:48:02Z
+GET,[Probe] GET /health,"ConnectionRefusedError(10061, '[WinError 10061] No connection could be made because the target machine actively refused it.')",3,2026-09-11T18:47:59Z,2026-09-11T18:48:02Z

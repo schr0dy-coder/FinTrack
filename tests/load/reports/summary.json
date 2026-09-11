@@ -1,0 +1,342 @@
+[
+  {
+    "tier": "tier_10_users",
+    "users": 10,
+    "spawn_rate": 5,
+    "duration": "20s",
+    "total_requests": 943,
+    "failure_count": 0,
+    "failure_rate_pct": 0.0,
+    "requests_per_sec": 49.43,
+    "avg_response_ms": 120.04,
+    "min_response_ms": 1.4,
+    "max_response_ms": 1846.71,
+    "median_ms": 110.0,
+    "p90_ms": 240.0,
+    "p95_ms": 280.0,
+    "p99_ms": 400.0,
+    "endpoints": [
+      {
+        "name": "[API] GET /api/v1/admin/model/status",
+        "method": "GET",
+        "requests": 22,
+        "failures": 0,
+        "rps": 1.15,
+        "avg_ms": 31.93,
+        "median_ms": 23.0,
+        "p95_ms": 100.0,
+        "p99_ms": 100.0
+      },
+      {
+        "name": "[API] GET /api/v1/admin/statistics",
+        "method": "GET",
+        "requests": 52,
+        "failures": 0,
+        "rps": 2.73,
+        "avg_ms": 149.06,
+        "median_ms": 170.0,
+        "p95_ms": 320.0,
+        "p99_ms": 340.0
+      },
+      {
+        "name": "[API] GET /api/v1/alerts",
+        "method": "GET",
+        "requests": 97,
+        "failures": 0,
+        "rps": 5.08,
+        "avg_ms": 68.64,
+        "median_ms": 57.0,
+        "p95_ms": 150.0,
+        "p99_ms": 220.0
+      },
+      {
+        "name": "[API] GET /api/v1/transactions",
+        "method": "GET",
+        "requests": 231,
+        "failures": 0,
+        "rps": 12.11,
+        "avg_ms": 71.26,
+        "median_ms": 70.0,
+        "p95_ms": 150.0,
+        "p99_ms": 190.0
+      },
+      {
+        "name": "[API] POST /api/v1/transactions (Full Pipeline)",
+        "method": "POST",
+        "requests": 482,
+        "failures": 0,
+        "rps": 25.26,
+        "avg_ms": 168.78,
+        "median_ms": 150.0,
+        "p95_ms": 330.0,
+        "p99_ms": 470.0
+      },
+      {
+        "name": "[Probe] GET /health",
+        "method": "GET",
+        "requests": 59,
+        "failures": 0,
+        "rps": 3.09,
+        "avg_ms": 4.61,
+        "median_ms": 3.0,
+        "p95_ms": 13.0,
+        "p99_ms": 56.0
+      }
+    ]
+  },
+  {
+    "tier": "tier_25_users",
+    "users": 25,
+    "spawn_rate": 10,
+    "duration": "25s",
+    "total_requests": 1301,
+    "failure_count": 2,
+    "failure_rate_pct": 0.15,
+    "requests_per_sec": 53.99,
+    "avg_response_ms": 351.23,
+    "min_response_ms": 2.41,
+    "max_response_ms": 6479.75,
+    "median_ms": 230.0,
+    "p90_ms": 570.0,
+    "p95_ms": 990.0,
+    "p99_ms": 3100.0,
+    "endpoints": [
+      {
+        "name": "[API] GET /api/v1/admin/model/status",
+        "method": "GET",
+        "requests": 50,
+        "failures": 0,
+        "rps": 2.07,
+        "avg_ms": 126.68,
+        "median_ms": 100.0,
+        "p95_ms": 330.0,
+        "p99_ms": 360.0
+      },
+      {
+        "name": "[API] GET /api/v1/admin/statistics",
+        "method": "GET",
+        "requests": 99,
+        "failures": 0,
+        "rps": 4.11,
+        "avg_ms": 295.28,
+        "median_ms": 280.0,
+        "p95_ms": 550.0,
+        "p99_ms": 620.0
+      },
+      {
+        "name": "[API] GET /api/v1/alerts",
+        "method": "GET",
+        "requests": 206,
+        "failures": 0,
+        "rps": 8.55,
+        "avg_ms": 165.64,
+        "median_ms": 150.0,
+        "p95_ms": 340.0,
+        "p99_ms": 440.0
+      },
+      {
+        "name": "[API] GET /api/v1/transactions",
+        "method": "GET",
+        "requests": 260,
+        "failures": 0,
+        "rps": 10.79,
+        "avg_ms": 175.14,
+        "median_ms": 160.0,
+        "p95_ms": 370.0,
+        "p99_ms": 540.0
+      },
+      {
+        "name": "[API] POST /api/v1/transactions (Full Pipeline)",
+        "method": "POST",
+        "requests": 593,
+        "failures": 2,
+        "rps": 24.61,
+        "avg_ms": 562.04,
+        "median_ms": 330.0,
+        "p95_ms": 2000.0,
+        "p99_ms": 4000.0
+      },
+      {
+        "name": "[Probe] GET /health",
+        "method": "GET",
+        "requests": 93,
+        "failures": 0,
+        "rps": 3.86,
+        "avg_ms": 90.74,
+        "median_ms": 60.0,
+        "p95_ms": 270.0,
+        "p99_ms": 360.0
+      }
+    ]
+  },
+  {
+    "tier": "tier_50_users",
+    "users": 50,
+    "spawn_rate": 15,
+    "duration": "30s",
+    "total_requests": 1287,
+    "failure_count": 0,
+    "failure_rate_pct": 0.0,
+    "requests_per_sec": 44.28,
+    "avg_response_ms": 979.74,
+    "min_response_ms": 1.71,
+    "max_response_ms": 4651.12,
+    "median_ms": 830.0,
+    "p90_ms": 1800.0,
+    "p95_ms": 2100.0,
+    "p99_ms": 3100.0,
+    "endpoints": [
+      {
+        "name": "[API] GET /api/v1/admin/model/status",
+        "method": "GET",
+        "requests": 40,
+        "failures": 0,
+        "rps": 1.38,
+        "avg_ms": 791.49,
+        "median_ms": 760.0,
+        "p95_ms": 1800.0,
+        "p99_ms": 2900.0
+      },
+      {
+        "name": "[API] GET /api/v1/admin/statistics",
+        "method": "GET",
+        "requests": 83,
+        "failures": 0,
+        "rps": 2.86,
+        "avg_ms": 1008.64,
+        "median_ms": 860.0,
+        "p95_ms": 1900.0,
+        "p99_ms": 3400.0
+      },
+      {
+        "name": "[API] GET /api/v1/alerts",
+        "method": "GET",
+        "requests": 149,
+        "failures": 0,
+        "rps": 5.13,
+        "avg_ms": 814.63,
+        "median_ms": 700.0,
+        "p95_ms": 1800.0,
+        "p99_ms": 2400.0
+      },
+      {
+        "name": "[API] GET /api/v1/transactions",
+        "method": "GET",
+        "requests": 276,
+        "failures": 0,
+        "rps": 9.5,
+        "avg_ms": 821.4,
+        "median_ms": 720.0,
+        "p95_ms": 1700.0,
+        "p99_ms": 2100.0
+      },
+      {
+        "name": "[API] POST /api/v1/transactions (Full Pipeline)",
+        "method": "POST",
+        "requests": 635,
+        "failures": 0,
+        "rps": 21.85,
+        "avg_ms": 1156.78,
+        "median_ms": 980.0,
+        "p95_ms": 2700.0,
+        "p99_ms": 3500.0
+      },
+      {
+        "name": "[Probe] GET /health",
+        "method": "GET",
+        "requests": 104,
+        "failures": 0,
+        "rps": 3.58,
+        "avg_ms": 604.84,
+        "median_ms": 420.0,
+        "p95_ms": 1800.0,
+        "p99_ms": 2400.0
+      }
+    ]
+  },
+  {
+    "tier": "tier_100_users",
+    "users": 100,
+    "spawn_rate": 25,
+    "duration": "30s",
+    "total_requests": 64,
+    "failure_count": 0,
+    "failure_rate_pct": 0.0,
+    "requests_per_sec": 30.95,
+    "avg_response_ms": 631.95,
+    "min_response_ms": 28.62,
+    "max_response_ms": 1683.94,
+    "median_ms": 650.0,
+    "p90_ms": 1300.0,
+    "p95_ms": 1500.0,
+    "p99_ms": 1700.0,
+    "endpoints": [
+      {
+        "name": "[API] GET /api/v1/admin/model/status",
+        "method": "GET",
+        "requests": 4,
+        "failures": 0,
+        "rps": 1.93,
+        "avg_ms": 358.82,
+        "median_ms": 640.0,
+        "p95_ms": 650.0,
+        "p99_ms": 650.0
+      },
+      {
+        "name": "[API] GET /api/v1/admin/statistics",
+        "method": "GET",
+        "requests": 4,
+        "failures": 0,
+        "rps": 1.93,
+        "avg_ms": 327.4,
+        "median_ms": 120.0,
+        "p95_ms": 1100.0,
+        "p99_ms": 1100.0
+      },
+      {
+        "name": "[API] GET /api/v1/alerts",
+        "method": "GET",
+        "requests": 10,
+        "failures": 0,
+        "rps": 4.84,
+        "avg_ms": 529.16,
+        "median_ms": 540.0,
+        "p95_ms": 1000.0,
+        "p99_ms": 1000.0
+      },
+      {
+        "name": "[API] GET /api/v1/transactions",
+        "method": "GET",
+        "requests": 12,
+        "failures": 0,
+        "rps": 5.8,
+        "avg_ms": 428.29,
+        "median_ms": 350.0,
+        "p95_ms": 1100.0,
+        "p99_ms": 1100.0
+      },
+      {
+        "name": "[API] POST /api/v1/transactions (Full Pipeline)",
+        "method": "POST",
+        "requests": 27,
+        "failures": 0,
+        "rps": 13.06,
+        "avg_ms": 968.7,
+        "median_ms": 850.0,
+        "p95_ms": 1700.0,
+        "p99_ms": 1700.0
+      },
+      {
+        "name": "[Probe] GET /health",
+        "method": "GET",
+        "requests": 7,
+        "failures": 0,
+        "rps": 3.39,
+        "avg_ms": 159.18,
+        "median_ms": 94.0,
+        "p95_ms": 350.0,
+        "p99_ms": 350.0
+      }
+    ]
+  }
+]
