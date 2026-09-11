@@ -108,7 +108,7 @@ $$\text{Final Risk Score} = (0.60 \times \text{Rule Score}) + (0.40 \times \text
 - **Machine Learning & Data:** scikit-learn 1.4+, Pandas 2.2+, NumPy 1.26+, Joblib
 - **Authentication & Security:** PyJWT, bcrypt (cost factor 12)
 - **Analyst Dashboard:** Streamlit 1.32+, Plotly 5.20+
-- **Testing & Quality:** Pytest 8.1+, Pytest-Asyncio
+- **Testing, Load Benchmarking & Quality:** Pytest 8.1+, Pytest-Asyncio, Locust 2.24+, Ruff
 - **Deployment:** Docker, Docker Compose
 
 ---
@@ -146,14 +146,19 @@ FinTrack/
 │   ├── train_model.py               # Chronological ML training pipeline
 │   ├── evaluate_model.py            # Held-out quantitative ML evaluation script
 │   ├── benchmark.py                 # Performance & latency benchmark suite
+│   ├── run_load_test.py             # Automated multi-tier Locust load testing runner
 │   └── seed_database.py             # Idempotent database seeder
 ├── docs/
 │   ├── api-examples.md              # REST API request/response examples
 │   ├── architecture.md              # Component interactions & security model
 │   ├── ml_evaluation.md             # Held-out ML evaluation report
-│   ├── benchmarks.md                # Measured API & ML latency report
+│   ├── benchmarks.md                # Measured API, ML & Locust load latency report
 │   └── images/                      # Dashboard, Transaction, Alert, and Swagger visuals
-├── tests/                           # 44 automated test cases
+├── tests/                           # Automated test suite
+│   ├── unit/                        # Rule engine, math, and ML unit tests
+│   ├── integration/                 # Alert triage and transaction integration tests
+│   ├── api/                         # FastAPI route and RBAC security tests
+│   └── load/                        # Locust load testing suite & reports
 ├── Dockerfile                       # Multi-stage Docker container build
 ├── docker-compose.yml               # PostgreSQL + API + Dashboard stack
 ├── .dockerignore                    # Build exclusion rules for Docker
@@ -342,9 +347,11 @@ docker compose exec api python scripts/seed_database.py
 
 ---
 
-## 15. Testing
+## 15. Testing & Performance Benchmarking
 
-Execute the automated test suite covering rules, math, ML inference, chronological evaluation, API routes, and RBAC:
+### Automated Unit, Integration & API Tests
+
+Execute the automated test suite covering rules, scoring math, ML inference, chronological evaluation, API routes, and RBAC:
 
 ```bash
 pytest -v
@@ -361,7 +368,23 @@ tests/unit/test_features.py ....                                         [ 70%]
 tests/unit/test_ml.py ...                                                [ 77%]
 tests/unit/test_risk_rules.py .......                                    [ 93%]
 tests/unit/test_scoring.py ...                                           [100%]
-============================= 44 passed in 5.29s ==============================
+============================= 44 passed in 4.72s ==============================
+```
+
+### Locust Load & Stress Testing
+
+Run concurrent load tests to measure throughput and latency under multi-user traffic:
+
+```bash
+# 1. Automated multi-tier headless benchmark (10, 25, 50, 100 users):
+python scripts/run_load_test.py
+
+# 2. Interactive visual Web UI:
+# Terminal 1: Start API server
+uvicorn app.main:app --port 8000
+# Terminal 2: Start Locust UI
+locust -f tests/load/locustfile.py --host http://localhost:8000
+# Open http://localhost:8089 in your browser
 ```
 
 ---
